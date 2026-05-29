@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edina Girls – Anna & Fiona</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    ::selection { background: #fef08a; }
+
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes float1  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float2  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+    @keyframes sparkle { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.5)} }
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    .gold-shimmer {
+      background: linear-gradient(90deg,#C9A84C 0%,#ffe066 25%,#fff8b0 50%,#ffe066 75%,#C9A84C 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2.5s linear infinite;
+    }
+    .pink-shimmer {
+      background: linear-gradient(90deg,#fec7fe 0%,#ff9ef9 40%,#fec7fe 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2.5s linear infinite;
+    }
+    .gold-bg {
+      background: linear-gradient(135deg,#C9A84C 0%,#ffe066 40%,#fff5a0 50%,#ffe066 60%,#C9A84C 100%);
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
+    .float-1 { animation: float1 3s ease-in-out infinite; }
+    .float-2 { animation: float2 3.5s .5s ease-in-out infinite; }
+    .sparkle  { animation: sparkle 2s ease-in-out infinite; }
+    .fade-up  { animation: fadeUp .7s ease both; }
+
+    /* Card hover */
+    .biz-card {
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: pointer;
+    }
+    .biz-card:hover { transform: translateY(-10px) scale(1.01); }
+
+    /* Pawsome card glow */
+    .pawsome-card:hover { box-shadow: 0 30px 80px rgba(254,199,254,.5); }
+
+    /* Soccer card glow */
+    .soccer-card:hover  { box-shadow: 0 30px 80px rgba(18,183,106,.3); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#fdf8ff] via-white to-[#f4fdf8] flex flex-col">
+
+<!-- Background decorations -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+  <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-[#fec7fe]/10 rounded-full blur-[120px]"></div>
+  <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#12B76A]/10 rounded-full blur-[120px]"></div>
+  <div class="sparkle absolute top-16 left-16 text-3xl">✨</div>
+  <div class="sparkle absolute top-24 right-20 text-2xl" style="animation-delay:.4s">⭐</div>
+  <div class="sparkle absolute bottom-24 left-24 text-xl" style="animation-delay:.8s">✨</div>
+  <div class="sparkle absolute bottom-16 right-16 text-2xl" style="animation-delay:.3s">⭐</div>
+</div>
+
+<div class="relative z-10 flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="text-center pt-16 pb-8 px-6 fade-up">
+    <div class="inline-flex items-center gap-3 mb-6">
+      <span class="text-3xl">🌟</span>
+      <span class="text-sm font-black uppercase tracking-widest text-gray-400">Edina, Minnesota</span>
+      <span class="text-3xl">🌟</span>
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-4 text-gray-900">
+      Welcome to<br/>
+      <span class="text-[#fec7fe]">Edina</span><span class="text-[#12B76A]">Girls</span>
+    </h1>
+    <p class="text-xl text-gray-500 font-bold max-w-lg mx-auto leading-relaxed">
+      Hi! We're Anna & Fiona — two Edina girls running two awesome businesses. Pick yours below! 👇
+    </p>
+  </header>
+
+  <!-- BUSINESS CARDS -->
+  <main class="flex-grow flex items-center justify-center px-6 py-8">
+    <div class="w-full max-w-4xl grid md:grid-cols-2 gap-8">
+
+      <!-- PAWSOME PALS -->
+      <a href="/pawsomepals/" class="block no-underline">
+        <div class="biz-card pawsome-card bg-white rounded-[40px] p-10 border-4 border-[#fec7fe]/40 shadow-xl shadow-pink-100 flex flex-col h-full" style="min-height:420px;">
+
+          <!-- Top accent -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="bg-[#fec7fe] p-3 rounded-2xl shadow-lg">
+              <span class="text-3xl">🐾</span>
+            </div>
+            <div class="h-1 flex-grow rounded-full" style="background:linear-gradient(90deg,#fec7fe,transparent)"></div>
+          </div>
+
+          <div class="flex-grow">
+            <div class="inline-block bg-[#fec7fe]/15 text-[#fec7fe] text-xs font-black px-4 py-1.5 rounded-full border border-[#fec7fe]/40 uppercase tracking-widest mb-4">
+              🐶 Dog Walking & Pet Care
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
+              <span class="pink-shimmer">Pawsome</span><br/>Pals
+            </h2>
+            <p class="text-gray-500 font-medium text-lg leading-relaxed mb-8">
+              Dog walking, quick visits, and extended care for your furry best friend — right here in Edina by Anna & Fiona!
+            </p>
+
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#fec7fe] text-lg">✓</span> Walkies from $10
+              </div>
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#fec7fe] text-lg">✓</span> Quick visits from $8
+              </div>
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#fec7fe] text-lg">✓</span> Extended care available
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#fec7fe] text-white text-center py-4 px-8 rounded-2xl font-black text-xl transition-all active:scale-95 shadow-lg">
+            Visit Pawsome Pals 🐾
+          </div>
+        </div>
+      </a>
+
+      <!-- KICK WITH ANNA -->
+      <a href="/kickwithanna/" class="block no-underline">
+        <div class="biz-card soccer-card bg-white rounded-[40px] p-10 border-4 border-[#12B76A]/30 shadow-xl shadow-green-100 flex flex-col h-full" style="min-height:420px;">
+
+          <!-- Top accent -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="gold-bg p-3 rounded-2xl shadow-lg">
+              <span class="text-3xl">⚽</span>
+            </div>
+            <div class="h-1 flex-grow rounded-full" style="background:linear-gradient(90deg,#F5C842,transparent)"></div>
+          </div>
+
+          <div class="flex-grow">
+            <div class="inline-block bg-[#ecfdf3] text-[#027A48] text-xs font-black px-4 py-1.5 rounded-full border border-[#a7f0c7] uppercase tracking-widest mb-4">
+              ⚽ Soccer Training · Edina, MN
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
+              Kick With<br/><span class="gold-shimmer">Anna</span>
+            </h2>
+            <p class="text-gray-500 font-medium text-lg leading-relaxed mb-8">
+              One-on-one and small group soccer training for kids ages 4–10 in Edina parks — by Anna, a rising 8th grader who loves the game!
+            </p>
+
+            <div class="space-y-3 mb-8">
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#12B76A] text-lg">✓</span> Private 1-on-1 at $14/hr
+              </div>
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#12B76A] text-lg">✓</span> Small groups at $10/hr per kid
+              </div>
+              <div class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                <span class="text-[#12B76A] text-lg">✓</span> Edina parks & fields
+              </div>
+            </div>
+          </div>
+
+          <div class="gold-bg text-[#014d2a] text-center py-4 px-8 rounded-2xl font-black text-xl transition-all active:scale-95 shadow-lg"
+            style="box-shadow:0 0 20px rgba(245,200,66,.4)">
+            Visit Kick With Anna ⚽
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-8 px-6 text-gray-400 text-sm font-semibold">
+    <p>🌟 Anna & Fiona · Edina, MN · Summer 2025 🌟</p>
+    <p class="mt-1 text-xs">&copy; 2025 Edina Girls. All rights reserved.</p>
+  </footer>
+
+</div>
+</body>
+</html>
