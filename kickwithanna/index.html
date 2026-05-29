@@ -1,1 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kick With Anna – Soccer Training in Edina, MN</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    html { scroll-behavior: smooth; }
+    ::selection { background: #fef08a; }
 
+    :root {
+      --green: #12B76A;
+      --green-dark: #027A48;
+      --green-pale: #ecfdf3;
+      --gold: #C9A84C;
+      --gold-light: #F5C842;
+      --gold-glow: #ffe066;
+    }
+
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes sparkle { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+    @keyframes bounce-ball { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes pulse-ring { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(1.6);opacity:0} }
+    @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    .gold-shimmer {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-glow) 25%, #fff8b0 50%, var(--gold-glow) 75%, var(--gold) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2.5s linear infinite;
+    }
+    .shimmer-bg {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-glow) 30%, #fff5a0 50%, var(--gold-glow) 70%, var(--gold) 100%);
+      background-size: 200% auto;
+      animation: shimmer 2.5s linear infinite;
+    }
+    .sparkle { animation: sparkle 2s ease-in-out infinite; }
+    .bounce-ball { animation: bounce-ball 1.2s ease-in-out infinite; }
+    .float-1 { animation: float1 3s ease-in-out infinite; }
+    .float-2 { animation: float2 3.5s .5s ease-in-out infinite; }
+    .fade-in { animation: fadeInUp .7s ease both; }
+
+    .pulse-ring {
+      position: absolute; inset: -10px; border-radius: 24px;
+      border: 2px solid var(--gold-light);
+      animation: pulse-ring 1.8s ease-out infinite;
+    }
+    .pulse-ring-2 {
+      position: absolute; inset: -10px; border-radius: 24px;
+      border: 2px solid var(--gold-light);
+      animation: pulse-ring 1.8s .9s ease-out infinite;
+    }
+
+    .card-lift { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-lift:hover { transform: translateY(-6px); }
+
+    .faq-chevron { transition: transform .25s ease; }
+    .faq-chevron.open { transform: rotate(180deg); }
+
+    /* nav link hover */
+    .nav-link:hover { color: var(--gold-light) !important; }
+  </style>
+</head>
+<body class="bg-[#f7fdf9] text-gray-900 min-h-screen">
+
+<!-- ══════════════════════════════════════════
+     TOP BANNER
+══════════════════════════════════════════ -->
+<div class="bg-gradient-to-r from-[#027A48] via-[#12B76A] to-[#027A48] py-2 text-center overflow-hidden">
+  <span class="text-[#F5C842] text-xs font-black tracking-widest uppercase">
+    <span class="bounce-ball inline-block mx-2">⚽</span>
+    Edina, Minnesota Soccer Training
+    <span class="bounce-ball inline-block mx-2" style="animation-delay:.3s">⚽</span>
+    Book Your Session Today!
+    <span class="bounce-ball inline-block mx-2" style="animation-delay:.6s">⚽</span>
+  </span>
+</div>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 bg-[#027A48]/95 backdrop-blur-md border-b-4 border-[#F5C842]">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="shimmer-bg p-2 rounded-xl shadow-lg" style="box-shadow:0 0 14px rgba(245,200,66,.5)">
+        <span class="text-xl">⚽</span>
+      </div>
+      <span class="font-black text-xl text-white tracking-tight">Kick With Anna</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#sessions" class="nav-link text-sm font-bold text-white/80 transition-colors">Sessions</a>
+      <a href="#about"    class="nav-link text-sm font-bold text-white/80 transition-colors">About</a>
+      <a href="#parks"    class="nav-link text-sm font-bold text-white/80 transition-colors">Location</a>
+      <a href="#faq"      class="nav-link text-sm font-bold text-white/80 transition-colors">FAQ</a>
+      <button onclick="openModal()"
+        class="shimmer-bg text-[#014d2a] px-6 py-2.5 rounded-full font-black text-sm transition-all active:scale-95"
+        style="box-shadow:0 0 16px rgba(245,200,66,.6)">
+        ✨ Book Now
+      </button>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button class="md:hidden p-2 text-white" onclick="toggleMenu()">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#027A48] border-t border-[#F5C842]/30 px-6 py-4 space-y-4">
+    <a href="#sessions" onclick="toggleMenu()" class="block text-sm font-bold text-white/80">Sessions</a>
+    <a href="#about"    onclick="toggleMenu()" class="block text-sm font-bold text-white/80">About</a>
+    <a href="#parks"    onclick="toggleMenu()" class="block text-sm font-bold text-white/80">Location</a>
+    <a href="#faq"      onclick="toggleMenu()" class="block text-sm font-bold text-white/80">FAQ</a>
+    <button onclick="openModal(); toggleMenu();"
+      class="w-full shimmer-bg text-[#014d2a] px-6 py-3 rounded-full font-black text-sm">
+      ✨ Book Now
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <img src="Edinabackground.png" alt="Edina soccer field" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-[#027A48]/75"></div>
+  </div>
+
+  <!-- Sparkle decorations -->
+  <span class="sparkle absolute top-20 right-16 text-2xl z-10 hidden md:block">✨</span>
+  <span class="sparkle absolute top-40 left-12 text-lg z-10 hidden md:block" style="animation-delay:.5s">⭐</span>
+  <span class="sparkle absolute bottom-24 right-24 text-xl z-10 hidden md:block" style="animation-delay:.8s">✨</span>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center fade-in">
+    <div class="inline-flex items-center gap-2 bg-[#F5C842]/20 border border-[#F5C842]/60 text-[#F5C842] px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase mb-6">
+      ⚽ Edina, MN · Rising 8th Grader
+    </div>
+
+    <h1 class="text-7xl md:text-8xl font-black leading-none mb-6 tracking-tight text-white">
+      Kick With<br/>
+      <span class="gold-shimmer">Anna</span>
+    </h1>
+
+    <p class="text-xl md:text-2xl text-white/90 font-bold mb-4">
+      One-on-One & Small Group Soccer Training
+    </p>
+
+    <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+      Anna is a soccer-obsessed rising 8th grader who also happens to LOVE working with kids — and she figured, why not combine both?! Your little one is going to have a blast! ⚽✨
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button onclick="openModal()"
+        class="shimmer-bg text-[#014d2a] px-10 py-5 rounded-2xl font-black text-xl transition-all active:scale-95"
+        style="box-shadow:0 0 30px rgba(245,200,66,.7)">
+        ✨ Book a Session!
+      </button>
+      <a href="#sessions"
+        class="bg-white/10 text-white border-2 border-white/30 px-10 py-5 rounded-2xl font-black text-xl transition-all hover:bg-white/20 active:scale-95">
+        Learn More →
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating badges -->
+  <div class="float-1 absolute top-32 right-8 bg-white p-3 rounded-2xl shadow-xl border-2 border-[#F5C842]/30 hidden lg:block z-10">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 bg-green-100 rounded-full flex items-center justify-center text-lg">⚽</div>
+      <div>
+        <div class="font-black text-sm text-[#027A48]">Ages 4–10</div>
+        <div class="text-[10px] text-gray-400 font-semibold">All skill levels welcome!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="float-2 absolute bottom-32 left-8 bg-white p-3 rounded-2xl shadow-xl border-2 border-[#F5C842]/30 hidden lg:block z-10">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 shimmer-bg rounded-full flex items-center justify-center text-lg">🌟</div>
+      <div>
+        <div class="font-black text-sm text-[#027A48]">Edina Parks</div>
+        <div class="text-[10px] text-gray-400 font-semibold">We come to you!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════ -->
+<div class="shimmer-bg">
+  <div class="max-w-6xl mx-auto grid grid-cols-4">
+    <div class="text-center py-4 border-r border-[#027A48]/15">
+      <div class="text-lg font-black text-[#027A48]">1-on-1</div>
+      <div class="text-[10px] font-black text-[#027A48]/60 uppercase tracking-widest">Private Sessions</div>
+    </div>
+    <div class="text-center py-4 border-r border-[#027A48]/15">
+      <div class="text-lg font-black text-[#027A48]">Groups</div>
+      <div class="text-[10px] font-black text-[#027A48]/60 uppercase tracking-widest">2–4 Players</div>
+    </div>
+    <div class="text-center py-4 border-r border-[#027A48]/15">
+      <div class="text-lg font-black text-[#027A48]">Edina</div>
+      <div class="text-[10px] font-black text-[#027A48]/60 uppercase tracking-widest">Parks & Fields</div>
+    </div>
+    <div class="text-center py-4">
+      <div class="text-lg font-black text-[#027A48]">4–10</div>
+      <div class="text-[10px] font-black text-[#027A48]/60 uppercase tracking-widest">Year Olds</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SESSIONS
+══════════════════════════════════════════ -->
+<section id="sessions" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <div class="inline-block bg-[#ecfdf3] text-[#027A48] text-xs font-black px-4 py-1.5 rounded-full border border-[#a7f0c7] uppercase tracking-widest mb-4">⚽ Pick Your Session</div>
+      <h2 class="text-4xl md:text-5xl font-black text-[#027A48] mb-3">Let's Train! 🌟</h2>
+      <p class="text-gray-500 font-bold">Anna can't wait to get on the field with your kid!</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- 1-on-1 -->
+      <div class="card-lift bg-white rounded-[36px] p-8 border-2 border-[#c7f0da] shadow-xl shadow-gray-100 flex flex-col relative overflow-hidden">
+        <div class="absolute -top-8 -right-8 w-24 h-24 bg-[#F5C842]/10 rounded-full"></div>
+        <span class="text-4xl mb-4 block" style="animation: bounce-ball 2s ease-in-out infinite">🎯</span>
+        <div class="flex items-baseline justify-between mb-3">
+          <h3 class="text-2xl font-black text-[#027A48]">Private 1-on-1</h3>
+          <span class="text-xl font-black text-[#C9A84C]">$14/hr</span>
+        </div>
+        <p class="text-gray-500 font-medium leading-relaxed mb-6 flex-grow">
+          All eyes on YOUR player! Personalized drills for dribbling, shooting, passing, and confidence — at their own pace.
+        </p>
+        <ul class="space-y-2 mb-8">
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> Fully personalized to your child
+          </li>
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> Flexible scheduling
+          </li>
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> All skill levels welcome
+          </li>
+        </ul>
+        <button onclick="openModal()"
+          class="w-full py-4 bg-[#12B76A] hover:opacity-90 text-white font-black text-lg rounded-2xl transition-all active:scale-95">
+          Book Private Session
+        </button>
+      </div>
+
+      <!-- Small Group -->
+      <div class="card-lift bg-white rounded-[36px] p-8 border-2 border-[#F5C842]/40 shadow-xl shadow-gray-100 flex flex-col relative overflow-hidden">
+        <div class="absolute -top-8 -right-8 w-24 h-24 bg-[#F5C842]/10 rounded-full"></div>
+        <span class="text-4xl mb-4 block" style="animation: bounce-ball 2s .3s ease-in-out infinite">⚽</span>
+        <div class="flex items-baseline justify-between mb-3">
+          <h3 class="text-2xl font-black text-[#027A48]">Small Group</h3>
+          <span class="text-xl font-black text-[#C9A84C]">$10/hr per kid</span>
+        </div>
+        <p class="text-gray-500 font-medium leading-relaxed mb-6 flex-grow">
+          Bring a buddy! Train with 2–4 friends. More laughs, team games, friendly competitions, and so much soccer fun.
+        </p>
+        <ul class="space-y-2 mb-8">
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> Groups of 2–4 kids
+          </li>
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> Fun team drills & games
+          </li>
+          <li class="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <span class="text-[#12B76A]">✓</span> Great value for families
+          </li>
+        </ul>
+        <button onclick="openModal()"
+          class="w-full py-4 shimmer-bg text-[#014d2a] font-black text-lg rounded-2xl transition-all active:scale-95"
+          style="box-shadow:0 0 18px rgba(245,200,66,.4)">
+          Book Group Session
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ABOUT ANNA
+══════════════════════════════════════════ -->
+<section id="about" class="py-24 px-6 bg-[#027A48] relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-[#12B76A] rounded-full blur-[120px] opacity-30 -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-80 h-80 bg-[#12B76A] rounded-full blur-[120px] opacity-30 translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+  <div class="absolute top-8 right-12 text-6xl opacity-10 pointer-events-none">⚽</div>
+  <div class="absolute bottom-8 left-12 text-5xl opacity-10 pointer-events-none">⚽</div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="inline-block shimmer-bg text-[#014d2a] text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6">✨ Meet Your Trainer</div>
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">Hi, I'm Anna! 👋</h2>
+        <p class="text-white/75 text-lg leading-relaxed mb-8">
+          I'm a rising 8th grader in Edina who lives and breathes soccer. I also happen to love working with younger kids — so starting Kick With Anna was a total no-brainer! I'm energetic, patient, and I genuinely love this sport. I cannot wait to meet your player and have an amazing summer on the field! ⚽🌟
+        </p>
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 shimmer-bg rounded-xl flex items-center justify-center text-lg flex-shrink-0">⚽</div>
+            <div>
+              <div class="font-black text-white">Soccer Obsessed</div>
+              <div class="text-white/60 text-sm font-medium">Been playing for years and loves every minute</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 shimmer-bg rounded-xl flex items-center justify-center text-lg flex-shrink-0">🌟</div>
+            <div>
+              <div class="font-black text-white">Great with Kids</div>
+              <div class="text-white/60 text-sm font-medium">Patient, energetic, and genuinely fun to train with</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 shimmer-bg rounded-xl flex items-center justify-center text-lg flex-shrink-0">📍</div>
+            <div>
+              <div class="font-black text-white">Edina Local</div>
+              <div class="text-white/60 text-sm font-medium">Born and raised in Edina — knows every field!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="aspect-square bg-white/10 border-4 border-[#F5C842]/40 rounded-[50px] flex items-center justify-center text-[120px] shadow-2xl">
+          ⚽
+        </div>
+        <div class="float-1 absolute -top-4 -right-4 shimmer-bg p-3 rounded-2xl shadow-xl">
+          <div class="text-center">
+            <div class="font-black text-[#014d2a] text-sm">Rising 8th</div>
+            <div class="text-[#014d2a]/70 text-xs font-bold">Grader</div>
+          </div>
+        </div>
+        <div class="float-2 absolute -bottom-4 -left-4 shimmer-bg p-3 rounded-2xl shadow-xl">
+          <div class="text-center">
+            <div class="font-black text-[#014d2a] text-sm">Edina, MN</div>
+            <div class="text-[#014d2a]/70 text-xs font-bold">Local Trainer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PARKS / LOCATION
+══════════════════════════════════════════ -->
+<section id="parks" class="py-24 px-6 bg-[#ecfdf3] border-t-4 border-[#F5C842]">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <div class="inline-block bg-white text-[#027A48] text-xs font-black px-4 py-1.5 rounded-full border border-[#a7f0c7] uppercase tracking-widest mb-6">📍 Edina Parks</div>
+        <h2 class="text-4xl md:text-5xl font-black text-[#027A48] mb-6">Training Right Here in Edina!</h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+          We come to you! All sessions take place right here in Edina's amazing parks and fields. No need to travel far — just show up and get ready to kick! ⚽
+        </p>
+        <button onclick="openModal()"
+          class="bg-[#027A48] hover:opacity-90 text-white px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-lg active:scale-95">
+          Book a Session
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white flex items-center gap-3 p-4 rounded-2xl border-2 border-[#c7f0da] shadow-sm">
+          <span class="text-[#F5C842] font-black text-lg">★</span>
+          <span class="font-bold text-[#027A48]">Edina Parks</span>
+        </div>
+        <div class="bg-white flex items-center gap-3 p-4 rounded-2xl border-2 border-[#c7f0da] shadow-sm">
+          <span class="text-[#F5C842] font-black text-lg">★</span>
+          <span class="font-bold text-[#027A48]">Braemar Field</span>
+        </div>
+        <div class="bg-white flex items-center gap-3 p-4 rounded-2xl border-2 border-[#c7f0da] shadow-sm">
+          <span class="text-[#F5C842] font-black text-lg">★</span>
+          <span class="font-bold text-[#027A48]">Local Fields</span>
+        </div>
+        <div class="bg-white flex items-center gap-3 p-4 rounded-2xl border-2 border-[#c7f0da] shadow-sm">
+          <span class="text-[#F5C842] font-black text-lg">★</span>
+          <span class="font-bold text-[#027A48]">Your Backyard</span>
+        </div>
+        <div class="col-span-2 bg-[#027A48]/5 flex items-center gap-3 p-4 rounded-2xl border-2 border-[#027A48]/20">
+          <span class="text-[#F5C842] font-black text-lg">⚽</span>
+          <span class="font-bold text-[#027A48]">Don't see yours? Just ask — we'll make it work!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section id="faq" class="py-24 px-6 bg-white">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-14">
+      <h2 class="text-4xl md:text-5xl font-black text-[#027A48] mb-3">Got Questions? ⚽</h2>
+      <p class="text-gray-500 font-bold">Everything you need to know before booking!</p>
+    </div>
+
+    <div class="space-y-4">
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">What age groups do you train?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          Anna trains kids ages 4–10. Whether your child is just starting out or looking to level up their skills, she's got you covered!
+        </div>
+      </div>
+
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">How much does it cost?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          Private 1-on-1 sessions are $14/hour. Small group sessions (2–4 kids) are $10/hour per kid. Great value for awesome training!
+        </div>
+      </div>
+
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">Where do sessions take place?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          All sessions are held in Edina parks and fields — including Braemar Field. We come to you, so no travel stress!
+        </div>
+      </div>
+
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">What if it rains?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          Light rain? We can still train! Heavy rain or storms? We'll reschedule for a day that works for both of us — no problem at all.
+        </div>
+      </div>
+
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">How do I pay?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          We accept cash or parent-approved digital payments like Venmo. Details will be shared after your first booking!
+        </div>
+      </div>
+
+      <div class="bg-[#f7fdf9] rounded-3xl overflow-hidden border-2 border-[#d4f0e2] shadow-sm hover:shadow-md transition-all">
+        <button class="faq-trigger w-full p-6 text-left flex items-center justify-between gap-4" onclick="toggleFAQ(this)">
+          <span class="font-black text-lg text-[#027A48]">Do kids need to bring equipment?</span>
+          <div class="bg-[#ecfdf3] p-2 rounded-full flex-shrink-0">
+            <svg class="faq-chevron w-5 h-5 text-[#12B76A] rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+        <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
+          Just cleats (or sneakers!) and a water bottle. Anna will bring the soccer ball and any training equipment needed. Easy!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GLITTERY CTA
+══════════════════════════════════════════ -->
+<section class="py-24 px-6 bg-gradient-to-br from-[#00c46a] via-[#009e55] to-[#00c46a] relative overflow-hidden text-center">
+  <span class="sparkle absolute top-6 left-10 text-2xl">✨</span>
+  <span class="sparkle absolute top-6 right-10 text-2xl" style="animation-delay:.4s">⭐</span>
+  <span class="sparkle absolute bottom-8 left-20 text-xl" style="animation-delay:.8s">⭐</span>
+  <span class="sparkle absolute bottom-8 right-20 text-xl" style="animation-delay:.3s">✨</span>
+  <span class="sparkle absolute top-1/2 left-6 text-base" style="animation-delay:.6s">✦</span>
+  <span class="sparkle absolute top-1/2 right-6 text-base" style="animation-delay:1s">✦</span>
+
+  <div class="max-w-lg mx-auto relative border-4 border-[#F5C842] rounded-[32px] p-10"
+    style="box-shadow:0 0 50px rgba(245,200,66,.3),inset 0 0 30px rgba(245,200,66,.05)">
+    <span class="absolute -top-1 -left-1 text-xl">⭐</span>
+    <span class="absolute -top-1 -right-1 text-xl">⭐</span>
+    <span class="absolute -bottom-1 -left-1 text-xl">⭐</span>
+    <span class="absolute -bottom-1 -right-1 text-xl">⭐</span>
+
+    <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
+      Ready to <span class="gold-shimmer">Kick It</span> with Anna? ⚽
+    </h2>
+    <p class="text-white/85 text-base mb-8 leading-relaxed">
+      Anna is SO excited to work with your kids this summer!<br/>
+      Spots fill up fast — book your session today and let's get those skills going! 🌟
+    </p>
+
+    <div class="relative inline-block">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring-2"></div>
+      <button onclick="openModal()"
+        class="relative shimmer-bg text-[#014d2a] px-12 py-6 rounded-2xl font-black text-2xl transition-all active:scale-95"
+        style="box-shadow:0 0 0 4px rgba(255,255,255,.25),0 0 40px rgba(245,200,66,.9),0 0 80px rgba(245,200,66,.4)">
+        ✨ Book a Session Now! ✨
+      </button>
+    </div>
+
+    <p class="mt-6 text-white/60 text-xs font-bold">⚽ Edina, MN · Spots are limited this summer!</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="bg-[#027A48] border-t-4 border-[#F5C842] py-12 px-6 text-center">
+  <div class="flex items-center justify-center gap-3 mb-3">
+    <div class="shimmer-bg p-2 rounded-xl">
+      <span class="text-xl">⚽</span>
+    </div>
+    <span class="text-white font-black text-xl">Kick With Anna</span>
+  </div>
+  <p class="text-white/55 text-sm font-semibold">Rising 8th grader · Soccer trainer · Edina, MN · Summer 2025</p>
+  <p class="text-white/40 text-xs mt-3">&copy; 2025 Kick With Anna. All rights reserved.</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     BOOKING MODAL
+══════════════════════════════════════════ -->
+<div id="modal-backdrop" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+  <div class="absolute inset-0" onclick="closeModal()"></div>
+
+  <div class="relative z-10 w-full max-w-lg bg-white rounded-[40px] shadow-2xl overflow-hidden">
+
+    <!-- Form view -->
+    <div id="form-view">
+      <div class="p-8 pb-0">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-[#ecfdf3] px-3 py-1 rounded-full mb-2">
+              <span class="text-xs font-black uppercase tracking-wider text-[#027A48]">⚽ Book a Session</span>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900">Let's Get Kicking!</h3>
+            <p class="text-gray-500 font-medium text-sm mt-1">Fill in the details and Anna will get back to you!</p>
+          </div>
+          <button onclick="closeModal()" class="bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition-colors">
+            <svg class="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ⚠️ Replace YOUR_FORMSPREE_ID with your Kick With Anna Formspree form ID -->
+      <form id="booking-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"
+        onsubmit="handleSubmit(event)" class="px-8 pb-8 space-y-4">
+
+        <input type="hidden" name="_subject" value="New Booking – Kick With Anna" />
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Parent Name</label>
+            <input type="text" name="parent_name" required placeholder="Jane Smith"
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Kid's Name</label>
+            <input type="text" name="kid_name" required placeholder="Jamie"
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Kid's Age</label>
+            <select name="age"
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors">
+              <option>4 years old</option>
+              <option>5 years old</option>
+              <option>6 years old</option>
+              <option>7 years old</option>
+              <option>8 years old</option>
+              <option>9 years old</option>
+              <option>10 years old</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Session Type</label>
+            <select name="session_type"
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors">
+              <option>Private 1-on-1 ($14/hr)</option>
+              <option>Small Group ($10/hr per kid)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Email Address</label>
+          <input type="email" name="email" required placeholder="jane@example.com"
+            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Preferred Date</label>
+            <input type="date" name="date" required
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors" />
+          </div>
+          <div>
+            <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Preferred Time</label>
+            <select name="time"
+              class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors">
+              <option>Morning (8–11 am)</option>
+              <option>Afternoon (12–4 pm)</option>
+              <option>Evening (4–7 pm)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Anything else?</label>
+          <textarea name="message" rows="2" placeholder="Skill level, preferred park, number of kids in group, etc."
+            class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors resize-none"></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full py-4 shimmer-bg text-[#014d2a] font-black text-lg rounded-2xl transition-all active:scale-95"
+          style="box-shadow:0 0 20px rgba(245,200,66,.4)">
+          Send Booking Request ⚽
+        </button>
+        <p class="text-center text-xs text-gray-400 font-medium">Anna will reply within 24 hours!</p>
+      </form>
+    </div>
+
+    <!-- Success view -->
+    <div id="success-view" class="hidden p-12 text-center">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">⚽</div>
+      <h3 class="text-3xl font-black text-gray-900 mb-3">Request Sent! 🌟</h3>
+      <p class="text-gray-500 font-medium mb-8 leading-relaxed">
+        Anna is SO excited and will get back to you within 24 hours. Get those cleats ready! ⚽✨
+      </p>
+      <button onclick="closeModal()"
+        class="shimmer-bg text-[#014d2a] px-8 py-4 rounded-2xl font-black transition-all active:scale-95">
+        Back to Site
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  }
+
+  function openModal() {
+    document.getElementById('form-view').classList.remove('hidden');
+    document.getElementById('success-view').classList.add('hidden');
+    document.getElementById('booking-form').reset();
+    const b = document.getElementById('modal-backdrop');
+    b.classList.remove('hidden');
+    b.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    const b = document.getElementById('modal-backdrop');
+    b.classList.add('hidden');
+    b.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('button[type=submit]');
+    const orig = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-view').classList.add('hidden');
+        document.getElementById('success-view').classList.remove('hidden');
+      } else {
+        alert('Something went wrong. Please try again!');
+        btn.textContent = orig;
+        btn.disabled = false;
+      }
+    } catch {
+      alert('Network error. Please check your connection.');
+      btn.textContent = orig;
+      btn.disabled = false;
+    }
+  }
+
+  function toggleFAQ(btn) {
+    const answer  = btn.nextElementSibling;
+    const chevron = btn.querySelector('.faq-chevron');
+    const isOpen  = !answer.classList.contains('hidden');
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+    document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.remove('hidden');
+      chevron.classList.add('open');
+    }
+  }
+</script>
+</body>
+</html>
