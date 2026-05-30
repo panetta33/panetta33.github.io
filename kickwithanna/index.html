@@ -133,11 +133,8 @@
      HERO
 ══════════════════════════════════════════ -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
-  <!-- Background image -->
-  <div class="absolute inset-0">
-    <img src="Edinabackground.png" alt="Edina soccer field" class="w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-[#027A48]/75"></div>
-  </div>
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-[#027A48] via-[#01603a] to-[#014d2a]"></div>
 
   <!-- Sparkle decorations -->
   <span class="sparkle absolute top-20 right-16 text-2xl z-10 hidden md:block">✨</span>
@@ -239,7 +236,7 @@
         <span class="text-4xl mb-4 block" style="animation: bounce-ball 2s ease-in-out infinite">🎯</span>
         <div class="flex items-baseline justify-between mb-3">
           <h3 class="text-2xl font-black text-[#027A48]">Private 1-on-1</h3>
-          <span class="text-xl font-black text-[#C9A84C]">$14/hr</span>
+          <span class="text-xl font-black text-[#C9A84C]">$12 / 45 min</span>
         </div>
         <p class="text-gray-500 font-medium leading-relaxed mb-6 flex-grow">
           All eyes on YOUR player! Personalized drills for dribbling, shooting, passing, and confidence — at their own pace.
@@ -255,7 +252,7 @@
             <span class="text-[#12B76A]">✓</span> All skill levels welcome
           </li>
         </ul>
-        <button onclick="openModal()"
+        <button onclick="openModal('private')"
           class="w-full py-4 bg-[#12B76A] hover:opacity-90 text-white font-black text-lg rounded-2xl transition-all active:scale-95">
           Book Private Session
         </button>
@@ -267,7 +264,7 @@
         <span class="text-4xl mb-4 block" style="animation: bounce-ball 2s .3s ease-in-out infinite">⚽</span>
         <div class="flex items-baseline justify-between mb-3">
           <h3 class="text-2xl font-black text-[#027A48]">Small Group</h3>
-          <span class="text-xl font-black text-[#C9A84C]">$10/hr per kid</span>
+          <span class="text-xl font-black text-[#C9A84C]">$9/hr per kid</span>
         </div>
         <p class="text-gray-500 font-medium leading-relaxed mb-6 flex-grow">
           Bring a buddy! Train with 2–4 friends. More laughs, team games, friendly competitions, and so much soccer fun.
@@ -283,11 +280,12 @@
             <span class="text-[#12B76A]">✓</span> Great value for families
           </li>
         </ul>
-        <button onclick="openModal()"
+        <button onclick="openModal('group')"
           class="w-full py-4 shimmer-bg text-[#014d2a] font-black text-lg rounded-2xl transition-all active:scale-95"
           style="box-shadow:0 0 18px rgba(245,200,66,.4)">
           Book Group Session
         </button>
+
       </div>
     </div>
   </div>
@@ -329,15 +327,15 @@
             <div class="w-10 h-10 shimmer-bg rounded-xl flex items-center justify-center text-lg flex-shrink-0">📍</div>
             <div>
               <div class="font-black text-white">Edina Local</div>
-              <div class="text-white/60 text-sm font-medium">Born and raised in Edina — knows every field!</div>
+              <div class="text-white/60 text-sm font-medium">Grew up in Edina and loves every park & field!</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="relative">
-        <div class="aspect-square bg-white/10 border-4 border-[#F5C842]/40 rounded-[50px] flex items-center justify-center text-[120px] shadow-2xl">
-          ⚽
+        <div class="aspect-square border-4 border-[#F5C842]/40 rounded-[50px] overflow-hidden shadow-2xl">
+          <img src="../anna.jpg" alt="Anna" class="w-full h-full object-cover" />
         </div>
         <div class="float-1 absolute -top-4 -right-4 shimmer-bg p-3 rounded-2xl shadow-xl">
           <div class="text-center">
@@ -431,7 +429,7 @@
           </div>
         </button>
         <div class="faq-answer hidden px-6 pb-6 text-gray-600 font-medium leading-relaxed">
-          Private 1-on-1 sessions are $14/hour. Small group sessions (2–4 kids) are $10/hour per kid. Great value for awesome training!
+          Private 1-on-1 sessions are $12 for 45 minutes. Small group sessions (2–4 kids) are $9/hour per kid. Amazing value for great training!
         </div>
       </div>
 
@@ -522,7 +520,7 @@
       </button>
     </div>
 
-    <p class="mt-6 text-white/60 text-xs font-bold">⚽ Edina, MN · Spots are limited this summer!</p>
+    <p class="mt-6 text-white/60 text-xs font-bold">⚽ Every great player starts somewhere — let's start today!</p>
   </div>
 </section>
 
@@ -600,10 +598,10 @@
           </div>
           <div>
             <label class="block text-xs font-black text-gray-700 mb-1.5 uppercase tracking-wide">Session Type</label>
-            <select name="session_type"
+            <select name="session_type" id="session-type-select"
               class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-2xl font-medium text-sm focus:outline-none focus:border-[#12B76A] transition-colors">
-              <option>Private 1-on-1 ($14/hr)</option>
-              <option>Small Group ($10/hr per kid)</option>
+              <option value="private">Private 1-on-1 ($12 / 45 min)</option>
+              <option value="group">Small Group ($9/hr per kid)</option>
             </select>
           </div>
         </div>
@@ -669,10 +667,15 @@
     document.getElementById('mobile-menu').classList.toggle('hidden');
   }
 
-  function openModal() {
+  function openModal(sessionType) {
     document.getElementById('form-view').classList.remove('hidden');
     document.getElementById('success-view').classList.add('hidden');
     document.getElementById('booking-form').reset();
+    if (sessionType === 'group') {
+      document.getElementById('session-type-select').value = 'group';
+    } else {
+      document.getElementById('session-type-select').value = 'private';
+    }
     const b = document.getElementById('modal-backdrop');
     b.classList.remove('hidden');
     b.classList.add('flex');
